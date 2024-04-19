@@ -33,7 +33,7 @@ const LoginCadastro = () => {
         }
     }, []);
 
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
 
@@ -42,11 +42,13 @@ const LoginCadastro = () => {
 
         api.get(`/funcionarios/login/${email}/${senha}`).then((Response) => {
             const { data } = Response;
-            console.log("Voce chegou no console log",data);
-            toast.success("Novo Card criado com sucesso!"); // Exibe uma mensagem de sucesso     
-            // navigate("/"); // Redireciona para a página de músicas
+            console.log("Voce chegou no console log", data);
+            if (data === true) {
+                toast.success("Login realizado com sucesso!"); // Exibe uma mensagem de sucesso     
+                navigate("/"); // Redireciona para a página de músicas
+            }
         }).catch(() => {
-            toast.error("Ocorreu um erro ao salvar os dados, por favor, tente novamente."); // Exibe uma mensagem de erro se a requisição falhar
+            toast.error("Ocorreu um erro ao verificar os dados, por favor, tente novamente."); // Exibe uma mensagem de erro se a requisição falhar
         })
     }
 
