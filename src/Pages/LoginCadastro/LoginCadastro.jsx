@@ -6,7 +6,8 @@ import { AiOutlineGooglePlus } from "react-icons/ai";
 import NavBar from "../../Componentes/NavBar/NavBar";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
+import { toast } from "react-toastify";
+import api from "../../api";
 
 const LoginCadastro = () => {
     useEffect(() => {
@@ -32,25 +33,32 @@ const LoginCadastro = () => {
         }
     }, []);
 
-    const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
-       const handleSave = () => {
-        const objetoAdicionado = {
-            email,
-            senha,
-            
-        };
+    //const navigate = useNavigate();
+    const [email, setEmail] = useState();
+    const [senha, setSenha] = useState();
+
+
+    const handleEnter = () => {
+
+        api.get(`/funcionarios/login/${email}/${senha}`).then((Response) => {
+            const { data } = Response;
+            console.log("Voce chegou no console log",data);
+            toast.success("Novo Card criado com sucesso!"); // Exibe uma mensagem de sucesso     
+            // navigate("/"); // Redireciona para a página de músicas
+        }).catch(() => {
+            toast.error("Ocorreu um erro ao salvar os dados, por favor, tente novamente."); // Exibe uma mensagem de erro se a requisição falhar
+        })
     }
 
 
     const handleInputChange = (event, setStateFunction) => {
         setStateFunction(event.target.value);
     }
-    
+
+
     return (
         <>
-            <NavBar/>
+            <NavBar />
             <div className="container" id="container">
                 <div className="form-container cadastrar-se">
                     <form>
@@ -94,11 +102,26 @@ const LoginCadastro = () => {
                                 <BiLogoLinkedin />
                             </a>
                         </div>
+
                         <span>ou utilize seu email e senha</span>
-                        <input type="email" placeholder="Email" />
-                        <input type="password" placeholder="Senha" />
+
+                        <input
+                            type="email"
+                            value={email}
+                            placeholder="Email"
+                            onChange={(e) => handleInputChange(e, setEmail)}
+
+                        />
+                        <input
+                            type="password"
+                            value={senha}
+                            placeholder="Senha"
+                            onChange={(e) => handleInputChange(e, setSenha)}
+                        />
+
                         <a href="./">Esqueci minha senha!</a>
-                        <button>Entrar</button>
+
+                        <button onClick={handleEnter} type="button">Entrar</button>
                     </form>
                 </div>
                 <div className="alternar-container">
@@ -132,14 +155,23 @@ const LoginCadastro = () => {
                     </div>
 
                     <form>
-                       
 
-                        <input value={email} type="email" placeholder="Email address" onChange={(e) => handleInputChange(e, setEmail)} required />
+                        <input
+                            value={email}
+                            type="email"
+                            placeholder="Email address"
+                            onChange={(e) => handleInputChange(e, setEmail)}
+                            required />
 
-                        <input value={senha} type="password" placeholder="Password" onChange={(e) => handleInputChange(e, setSenha)} required />
+                        <input
+                            value={senha}
+                            type="password"
+                            placeholder="Password"
+                            onChange={(e) => handleInputChange(e, setSenha)}
+                            required />
 
                         <a href="./">Forget Password?</a>
-                        <button type="submit" className="btn">Signup</button>
+                        <button type="button" className="btn">Signup</button>
                     </form>
 
                 </div>
@@ -166,7 +198,7 @@ const LoginCadastro = () => {
                     </form>
                 </div>
             </div>
-        
+
         </>
     )
 }

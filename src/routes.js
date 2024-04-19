@@ -9,7 +9,7 @@ function Router() {
     <BrowserRouter>                                        
       <Routes>       
 				<Route path={"/"} element={<Home />} />             
-				<Route path={"/funcionarios"} element={<Login />} />             
+				<Route path={"/login"} element={<Login />} />             
 				<Route path={"/DashBoardGeral"} element={<Login />} />             
 				<Route path={"*"} element={<NotFound />} />             
       </Routes>
