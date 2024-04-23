@@ -40,7 +40,7 @@ const LoginCadastro = () => {
 
     const handleEnter = () => {
 
-        api.get(`/funcionarios/login/${email}/${senha}`).then((Response) => {
+        api.get(`/usuarios/login/${email}/${senha}`).then((Response) => {
             const { data } = Response;
             console.log("Voce chegou no console log", data);
             if (data === true) {
