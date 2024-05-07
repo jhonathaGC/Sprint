@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import api from "../../api";
 
 const LoginCadastro = () => {
+
     useEffect(() => {
         const cadastrarBtn = document.getElementById('cadastrar-se')
         const entrarBtn = document.getElementById('entrar')
@@ -45,7 +46,7 @@ const LoginCadastro = () => {
             console.log("Voce chegou no console log", data);
             if (data === true) {
                 toast.success("Login realizado com sucesso!"); // Exibe uma mensagem de sucesso     
-                navigate("/"); // Redireciona para a página de músicas
+                navigate("/pagina-geral"); // Redireciona para a página de músicas
             }
         }).catch(() => {
             toast.error("Ocorreu um erro ao verificar os dados, por favor, tente novamente."); // Exibe uma mensagem de erro se a requisição falhar
@@ -200,7 +201,6 @@ const LoginCadastro = () => {
                     </form>
                 </div>
             </div>
-
         </>
     )
 }
