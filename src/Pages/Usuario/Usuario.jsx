@@ -1,11 +1,25 @@
 import React from "react";
-import styles from './Usuario.module.css'; // Importe seus estilos CSS corretamente
+import { Link } from "react-router-dom"; // Asumiendo que estás usando React Router
+import styles from './Usuario.module.css'; // Importa tus estilos CSS correctamente
+import adicionarUsuarioImg from '../../Assets/adicionar-usuario.png'; // Importa la imagen correctamente
+
+
 
 function Usuario() {
     return (
-        <div className={styles.sec}> {/* Use a classe de estilo correta */}
-            <div className={styles["container-usuarios"]}> {/* Use a classe de estilo correta */}
-                <table className={styles["tabela-usuario"]}> {/* Use a classe de estilo correta */}
+        <div className={styles.sec}>
+            <div className={styles.header}>
+                <Link to="./cadastroUsuario.jsx" className={styles.logo}>
+                    Usuários
+                    <img src={adicionarUsuarioImg} alt="adicionar novo usuario" />
+                </Link>
+                <div className={styles["header-right"]}>
+                    <input type="search" />
+                    <button >Pesquisar</button>
+                </div>
+            </div>
+            <div className={styles["container-usuarios"]}>
+                <table className={styles["tabela-usuario"]}>
                     <thead>
                         <tr>
                             <th>Nome de Usuário</th>

@@ -11,6 +11,7 @@ import {
 import SidebarItem from '../SidebarItem'
 import { Link } from 'react-router-dom'
 
+
 const Sidebar = ({ active }) => {
 
   const closeSidebar = () => {
@@ -22,7 +23,7 @@ const Sidebar = ({ active }) => {
       <FaTimes onClick={closeSidebar} />  
       <Content>
        <Link to={'/'}> <SidebarItem Icon={FaHome} Text="Usuarios" /></Link>
-        <Link><SidebarItem Icon={FaChartBar} Text="Statistics" /></Link>
+        <Link to={'/Home'}><SidebarItem Icon={FaChartBar} Text="Statistics" /></Link>
         <Link><SidebarItem Icon={FaUserAlt} Text="Users" /></Link>
         
       </Content>
