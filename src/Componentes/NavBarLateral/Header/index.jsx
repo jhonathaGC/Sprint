@@ -11,7 +11,6 @@ const Header = () => {
 
   return (
     <>
-
       <Container>
         <FaBars onClick={showSiderbar} />
         {sidebar && <Sidebar active={setSidebar} />}
