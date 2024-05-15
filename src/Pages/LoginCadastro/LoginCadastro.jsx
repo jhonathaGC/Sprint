@@ -82,7 +82,7 @@ const LoginCadastro = () => {
                 // handleSaveUser();
                 toast.success("Nova Empresa cadastrada com sucesso!");
                 sessionStorage.setItem("editado", JSON.stringify(objetoAdicionado));
-                navigate("/login")
+                
             }).catch(() => {
                 toast.error("Ocorreu um erro ao salvar os dados, por favor, tente novamente.");
             });
@@ -151,9 +151,7 @@ const LoginCadastro = () => {
                             {/* <input type="date" value={dtNascimento} placeholder="Data de Nascimento" */}
                                 {/* onChange={(e) => handleInputChange(e, setDtNascimento)} /> */}
                         </div>
-                        <Link to={"/login"}>
-                        <button id="pagina" type="button" onClick={handleSave}>Cadastrar</button>
-                        </Link>
+                        <button id="entrar" type="button" onClick={handleSave}>Cadastrar</button>
                     </form>
                 </div>
                 <div className="form-container entrar">
