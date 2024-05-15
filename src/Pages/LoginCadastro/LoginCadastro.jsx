@@ -1,27 +1,26 @@
-import React, { useEffect } from "react";
-import './LoginCadastro.css'
+import React, { useEffect, useState } from "react";
+import './LoginCadastro.css';
 import { BiLogoLinkedin } from "react-icons/bi";
 import { CgFacebook } from "react-icons/cg";
 import { AiOutlineGooglePlus } from "react-icons/ai";
 import NavBar from "../../Componentes/NavBar/NavBar";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { toast } from "react-toastify";
 import api from "../../api";
+import { Link } from "react-router-dom";
 
 const LoginCadastro = () => {
-
     useEffect(() => {
-        const cadastrarBtn = document.getElementById('cadastrar-se')
-        const entrarBtn = document.getElementById('entrar')
+        const cadastrarBtn = document.getElementById('cadastrar-se');
+        const entrarBtn = document.getElementById('entrar');
 
         const handleCadastrarClick = () => {
-            const container = document.getElementById('container')
+            const container = document.getElementById('container');
             container.classList.add("active");
         }
 
         const handleEntrarClick = () => {
-            const container = document.getElementById('container')
+            const container = document.getElementById('container');
             container.classList.remove("active");
         }
 
@@ -35,29 +34,80 @@ const LoginCadastro = () => {
     }, []);
 
     const navigate = useNavigate();
-    const [email, setEmail] = useState();
-    const [senha, setSenha] = useState();
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
 
+    const [nomeEmpresa, setNomeEmpresa] = useState("");
+    const [CNPJ, setCNPJ] = useState("");
+    const [emailCorporativo, setEmailCorporativo] = useState("");
+    const [razaoSocial, setRazaoSocial] = useState("");
+    const [senhaEmpresa, setSenhaEmpresa] = useState("");
+
+    // const [nome, setNome] = useState("");
+    // const [CPF, setCPF] = useState("");
+    // const [dtNascimento, setDtNascimento] = useState("");
 
     const handleEnter = () => {
-
-        api.get(`/usuarios/login/${email}/${senha}`).then((Response) => {
-            const { data } = Response;
-            console.log("Voce chegou no console log", data);
+        api.get(`/usuarios/login/${email}/${senha}`).then((response) => {
+            const { data } = response;
+            console.log("Você chegou no console log", data);
             if (data === true) {
-                toast.success("Login realizado com sucesso!"); // Exibe uma mensagem de sucesso     
-                navigate("/pagina-geral"); // Redireciona para a página de músicas
+                toast.success("Login realizado com sucesso!");
+                navigate("/pagina-geral");
             }
         }).catch(() => {
-            toast.error("Ocorreu um erro ao verificar os dados, por favor, tente novamente."); // Exibe uma mensagem de erro se a requisição falhar
-        })
+            toast.error("Ocorreu um erro ao verificar os dados, por favor, tente novamente.");
+        });
     }
-
 
     const handleInputChange = (event, setStateFunction) => {
         setStateFunction(event.target.value);
     }
 
+    const handleSave = () => {
+        
+        const objetoAdicionado = {
+            nomeEmpresa: nomeEmpresa,
+            razaoSocial: razaoSocial,
+            cnpj: CNPJ,
+            telefone: null,
+            emailCorporativo: emailCorporativo,
+            senhaEmpresa: senhaEmpresa,
+            logradouro: null,
+            ativo: true,
+        };
+
+        api.post(`/empresas/cadastro`, objetoAdicionado)
+            .then(() => {
+                // handleSaveUser();
+                toast.success("Nova Empresa cadastrada com sucesso!");
+                sessionStorage.setItem("editado", JSON.stringify(objetoAdicionado));
+                navigate("/login")
+            }).catch(() => {
+                toast.error("Ocorreu um erro ao salvar os dados, por favor, tente novamente.");
+            });
+    };
+
+    // const handleSaveUser = () => {
+    //     const usuarioAdicionado = {
+    //         nome,
+    //         CPF,
+    //         email,
+    //         senha,
+    //         dtNascimento,
+    //         funcao: null,
+    //         acesso: true
+    //     }
+
+    //     console.log("Usuário adicionado", usuarioAdicionado);
+
+    //     api.post(`/usuarios/cadastro`, usuarioAdicionado)
+    //         .then(() => {
+    //             console.log("Usuário cadastrado com sucesso!");
+    //         }).catch(() => {
+    //             toast.error("Ocorreu um erro ao salvar os dados do usuario, por favor, tente novamente.");
+    //         });
+    // }
 
     return (
         <>
@@ -79,16 +129,31 @@ const LoginCadastro = () => {
                         </div>
                         <div className="formulario">
                             <span>ou utilize seu email para se registrar</span>
-                            <input type="text" placeholder="Nome Fantasia" />
-                            <input type="number" placeholder="CNPJ" />
-                            <input type="email" placeholder="E-mail Corporativo" />
-                            <input type="email" placeholder="E-mail Pessoal" />
-                            <input type="text" placeholder="Nome" />
-                            <input type="text" placeholder="Sobrenome" />
-                            <input type="password" placeholder="Senha" />
-                            <input type="password" placeholder="Confirmar Senha" />
+                            <input type="text" value={nomeEmpresa} placeholder="Nome Empresa"
+                                onChange={(e) => handleInputChange(e, setNomeEmpresa)} />
+                            <input type="text" value={CNPJ} placeholder="CNPJ"
+                                onChange={(e) => handleInputChange(e, setCNPJ)} />
+                            <input type="email" value={emailCorporativo} placeholder="E-mail Corporativo"
+                                onChange={(e) => handleInputChange(e, setEmailCorporativo)} />
+                            <input type="text" value={razaoSocial} placeholder="Razão Social"
+                                onChange={(e) => handleInputChange(e, setRazaoSocial)} />
+                            <input type="password" value={senhaEmpresa} placeholder="Senha"
+                                onChange={(e) => handleInputChange(e, setSenhaEmpresa)} />
+                            {/* <input type="text" value={nome} placeholder="Nome" */}
+                                {/* onChange={(e) => handleInputChange(e, setNome)} /> */}
+                            {/* <input type="text" value={CPF} placeholder="CPF" */}
+                                {/* onChange={(e) => handleInputChange(e, setCPF)} /> */}
+                            {/* <input type="text" value={email} placeholder="E-mail Pessoal" */}
+                                {/* onChange={(e) => handleInputChange(e, setEmail)} /> */}
+                            {/* <input type="password" value={senha} placeholder="Senha" */}
+                                {/* onChange={(e) => handleInputChange(e, setSenha)} /> */}
+                            {/* <input type="password" placeholder="Confirmar Senha" /> */}
+                            {/* <input type="date" value={dtNascimento} placeholder="Data de Nascimento" */}
+                                {/* onChange={(e) => handleInputChange(e, setDtNascimento)} /> */}
                         </div>
-                        <button id="pagina">Cadastrar</button>
+                        <Link to={"/login"}>
+                        <button id="pagina" type="button" onClick={handleSave}>Cadastrar</button>
+                        </Link>
                     </form>
                 </div>
                 <div className="form-container entrar">
@@ -202,7 +267,7 @@ const LoginCadastro = () => {
                 </div>
             </div>
         </>
-    )
+    );
 }
 
 export default LoginCadastro;

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './CadastroUsuarios.module.css'
+import styles from './CadastroUsuario.module.css';
 function CadastroUsuarios() {
     return (
         <div className="container">
