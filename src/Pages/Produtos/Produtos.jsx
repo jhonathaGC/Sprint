@@ -1,9 +1,14 @@
 import React, { useEffect } from 'react';
 import styles from './Produtos.module.css';
+import { Link } from 'react-router-dom';
 
+import adicionarUsuarioImg from '../../Assets/adicionar-usuario.png';
 import IconPark from '../../Assets/icon-park-outline--add.svg';
 import OioArrow from '../../Assets/oui--arrow-up.svg';
 import Tabler from '../../Assets/tabler--file-export (1).svg';
+
+import SideBar from '../../Componentes/NavBarLateral/SideBarPrincipal'
+import FiltroPrincipal from '../../Componentes/NavBarLateral copy/FiltroPrincipal';
 
 
 function Produtos() {
@@ -57,26 +62,31 @@ function Produtos() {
       );
       tableBody.appendChild(row);
     });
+
   }
 
   return (
 
     <>
+
+
       <div className={styles['header']}>
-        <a href='#' className={styles.logo}>
-          Produtos
-          <img
-            src={IconPark}
-            alt='adicionar novo usuario'
-          />
-        </a>
-        <div className={styles['header-right']}>
-          <input type='search' />
-          <button className={styles.pesquisar}>Pesquisar</button>
+        <div className={styles.navColection}>
+
+          <SideBar />
+          <Link to='/CadastroUsuarios' className={styles.logo}>
+            Usuários
+            <img src={adicionarUsuarioImg} alt="adicionar novo usuario" />
+          </Link>
+          <div className={styles['header-right']}>
+            <input type='search' />
+            <button className={styles.pesquisar}>Pesquisar</button>
+          </div>
         </div>
 
         <div className={styles['container-usuarios']}>
           <h1>Todos seus produtos</h1>
+          <FiltroPrincipal />
           <br />
           <div id='quadrado' className={styles.quadrado}>
             <div className={styles.cabecalho} id='cabecalho'>
@@ -85,53 +95,9 @@ function Produtos() {
                 alt=''
                 className={styles.rotate}
               />
-              <h3>Aperte aqui para configurar os status de estoque</h3>
+
             </div>
-            <div id='campos' className={styles.campos}>
-              <div className={styles['inputs-informations']}>
-                <div>
-                  <label htmlFor='alto'>
-                    Quantidade de estoque considerado alto:
-                  </label>
-                  <input
-                    type='text'
-                    id='alto'
-                    placeholder='Coloque um valor'
-                    onClick={(event) => event.stopPropagation()}
-                  />
-                </div>
-                <div>
-                  <label htmlFor='medio'>
-                    Quantidade de estoque considerado médio:
-                  </label>
-                  <input
-                    type='text'
-                    id='medio'
-                    placeholder='Coloque um valor'
-                    onClick={(event) => event.stopPropagation()}
-                  />
-                </div>
-                <div>
-                  <label htmlFor='falta'>
-                    Quantidade de estoque considerado baixo:
-                  </label>
-                  <input
-                    type='text'
-                    id='falta'
-                    placeholder='Coloque um valor'
-                    onClick={(event) => event.stopPropagation()}
-                  />
-                </div>
-              </div>
-              <div className={styles.botaoCadStatus}>
-                <button
-                  className={styles.btnCadStatus}
-                  onClick={(event) => event.stopPropagation()}
-                >
-                  Salvar
-                </button>
-              </div>
-            </div>
+
           </div>
           <br />
           <br />

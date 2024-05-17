@@ -1,9 +1,8 @@
-// Sidebar.js
 import React from 'react';
-import styles from './Sidebar.css';
+import styles from './Sidebar.module.css';
 import { Link } from 'react-router-dom';
 
-// Importante imagens da SideBar
+// Import images for the Sidebar
 import Hamburguer from '../../Assets/menu-hamburguer.png'
 import Usuario from '../../Assets/usuario.png'
 import EstoquePronto from '../../Assets/estoque-pronto.png'
@@ -14,59 +13,59 @@ import AddUsuario from '../../Assets/adicionar-usuario.png'
 
 const Sidebar = ({ isOpen, toggle }) => {
   return (
-    <nav className={isOpen ? 'sidebar open' : 'sidebar'}>
+    <nav className={isOpen ? `${styles.sidebar} ${styles.open}` : styles.sidebar}>
 
-      <span className='hamburger' onClick={toggle}>
+      <span className={styles.hamburger} onClick={toggle}>
         <img src={Hamburguer} alt='ola' />
       </span>
 
-      <div class="usuario">
+      <div className={styles.usuario}>
 
         <h4 id="Empresa">Empresa ABC</h4>
         <img src={Usuario} alt="" />
         <p id="Usuario">Raquel Guimarães</p>
 
       </div>
-      <ul className='ul_sidebar'>
-        <li class="item-menu">
+      <ul className={styles.ul_sidebar}>
+        <li className={styles.item_menu}>
           <Link to='/pagina-geral'>
-            <span class="icone"></span>
-            <span class="texto">Estoque <img src={EstoquePronto} alt="" /></span>
+            <span className={styles.icone}></span>
+            <span className={styles.texto}>Estoque <img src={EstoquePronto} alt="" /></span>
           </Link>
         </li>
 
-        <li class="item-menu">
+        <li className={styles.item_menu}>
 
           <Link>
-            <span class="icone"></span>
-            <span class="texto">Compras <img src={Compras} alt="" /></span>
+            <span className={styles.icone}></span>
+            <span className={styles.texto}>Compras <img src={Compras} alt="" /></span>
           </Link>
 
         </li>
 
-        <li class="item-menu">
+        <li className={styles.item_menu}>
 
           <Link>
-            <span class="icone"></span>
-            <span class="texto">Realtorio <img src={Relatorio} alt="" /></span>
+            <span className={styles.icone}></span>
+            <span className={styles.texto}>Realtorio <img src={Relatorio} alt="" /></span>
           </Link>
 
         </li>
         
-        <li class="item-menu">
+        <li className={styles.item_menu}>
 
           <Link>
-            <span class="icone"></span>
-            <span class="texto">Usuario <img src={AddUsuario} alt="" /></span>
+            <span className={styles.icone}></span>
+            <span className={styles.texto}>Usuario <img src={AddUsuario} alt="" /></span>
           </Link>
 
         </li>
 
-        <li class="item-menu">
+        <li className={styles.item_menu}>
 
           <Link>
-            <span class="icone"></span>
-            <span class="texto">Sair </span>
+            <span className={styles.icone}></span>
+            <span className={styles.texto}>Sair </span>
           </Link>
 
         </li>

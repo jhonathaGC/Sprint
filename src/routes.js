@@ -5,7 +5,6 @@ import Login from "./Pages/LoginCadastro/LoginCadastro";
 
 import NotFound from './Pages/404';
 import Usuario from './Pages/Usuario/Usuario';
-import CadastroUsuarios from './Pages/AddUsuario/CadastroUsuario';
 import Produtos from './Pages/Produtos/Produtos';
 
 import Sidebar from './Componentes/NavBarLateral/SideBarPrincipal';
@@ -28,7 +27,6 @@ function Router() {
 
         <Route path={"/pagina-geral"} element={<Sidebar />}/>
         <Route path={"/usuarios"} element={<Usuario />}/>
-        <Route path={"/CadastroUsuarios"} element={<CadastroUsuarios />}/>
         <Route path={"/Produtos"} element={<Produtos />}/>
         
 
